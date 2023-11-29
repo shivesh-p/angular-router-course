@@ -7,15 +7,13 @@
     "declaration": false,
     "moduleResolution": "node",
     "experimentalDecorators": true,
+    "strict": true,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom",
-      "ES2017.object"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom", "ES2017.object"],
     "useDefineForClassFields": false
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
   }
 }

@@ -1,64 +1,61 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule, PreloadAllModules, UrlSerializer, NoPreloading} from '@angular/router';
-import {LoginComponent} from './login/login.component';
-import {AboutComponent} from './about/about.component';
-import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {CanLoadAuthGuard} from './services/can-load-auth.guard';
-import {CustomPreloadingStrategy} from './services/custom-preloading.strategy';
-import {ChatComponent} from './chat/chat.component';
-
+import { NgModule } from "@angular/core";
+import {
+    RouterModule,
+    Routes
+} from "@angular/router";
+import { AboutComponent } from "./about/about.component";
+import { ChatComponent } from "./chat/chat.component";
+import { LoginComponent } from "./login/login.component";
+import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { CanLoadAuthGuard } from "./services/can-load-auth.guard";
+import { CustomPreloadingStrategy } from "./services/custom-preloading.strategy";
 
 const routes: Routes = [
     {
-      path: "",
-      redirectTo: "/courses",
-        pathMatch: "full"
+        path: "",
+        redirectTo: "/courses",
+        pathMatch: "full",
     },
     {
-      path: "courses",
-      loadChildren: () => import('./courses/courses.module')
-                            .then(m => m.CoursesModule),
+        path: "courses",
+        loadChildren: () =>
+            import("./courses/courses.module").then((m) => m.CoursesModule),
         // canLoad: [CanLoadAuthGuard]
-       data: {
-          preload: false
-       }
+        data: {
+            preload: false,
+        },
     },
     {
         path: "login",
-        component: LoginComponent
+        component: LoginComponent,
     },
     {
         path: "about",
-        component: AboutComponent
+        component: AboutComponent,
     },
     {
-        path: 'helpdesk-chat',
+        path: "helpdesk-chat",
         component: ChatComponent,
-        outlet: 'chat'
+        outlet: "chat",
     },
     {
         path: "**",
-        component: PageNotFoundComponent
-    }
-
+        component: PageNotFoundComponent,
+    },
 ];
 
 @NgModule({
-  imports: [
-      RouterModule.forRoot(
-          routes, {
-    preloadingStrategy: CustomPreloadingStrategy,
-    scrollPositionRestoration: 'enabled',
-    paramsInheritanceStrategy: 'always'
-})
-  ],
-  exports: [RouterModule],
-  providers: [
-      CanLoadAuthGuard,
-      CustomPreloadingStrategy
-  ]
-})
-export class AppRoutingModule {
+    imports: [
+        RouterModule.forRoot(routes, {
+            preloadingStrategy: CustomPreloadingStrategy,
+            enableTracing: false,
+            useHash: false,
+            scrollPositionRestoration: "enabled",
+            paramsInheritanceStrategy: "always",
 
-
-}
+        }),
+    ],
+    exports: [RouterModule],
+    providers: [CanLoadAuthGuard, CustomPreloadingStrategy],
+})
+export class AppRoutingModule { }

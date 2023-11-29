@@ -17,3 +17,4 @@ export class ConfirmExitGuard implements CanDeactivate<CourseComponent> {
     }
 
 }
+
